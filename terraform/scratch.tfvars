@@ -1,0 +1,11 @@
+vpc_cidr           = "10.0.0.0/16"
+account_alias      = "finnjitsu"
+app_subnet_a_cidr  = "10.0.0.0/24"
+app_subnet_b_cidr  = "10.0.1.0/24"
+db_subnet_a_cidr   = "10.0.2.0/24"
+db_subnet_b_cidr   = "10.0.3.0/24"
+web_subnet_a_cidr  = "10.0.4.0/24"
+web_subnet_b_cidr  = "10.0.5.0/24"
+scheduled_downtime = true
+stop_schedule      = "0 22 ? * 1-5 *"
+start_schedule     = "0 12 ? * 1-5 *"
