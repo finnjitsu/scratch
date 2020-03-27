@@ -32,9 +32,32 @@ resource "aws_instance" "app_worker_01" {
   availability_zone      = "${var.region}a"
   subnet_id              = module.main_vpc.app_subnet_a_id
   tags = {
-    Name              = "scratch-app-worker-01"
+    Name              = "${var.stack_name}-app-worker-01"
     ScheduledDowntime = var.scheduled_downtime
     StopSchedule      = var.stop_schedule
     StartSchedule     = var.start_schedule
+  }
+}
+
+/*******************************************************************************
+*                                                                              *
+* Security groups                                                              *
+*                                                                              *
+*******************************************************************************/
+
+resource "aws_security_group" "scratch_egress" {
+  name        = "${var.stack_name}-scratch-egress-sg"
+  description = "Allow traffic out."
+  vpc_id      = module.main_vpc.vpc_id
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [
+      "0.0.0.0/0"
+    ]
+    ipv6_cidr_blocks = [
+      "::/0"
+    ]
   }
 }

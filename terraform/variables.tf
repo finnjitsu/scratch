@@ -1,3 +1,8 @@
+variable "stack_name" {
+  type        = string
+  description = "Friendly name of the terraform stack that we're building."
+}
+
 variable "bucket" {
   type        = string
   description = "Name of the remote s3 bucket and dynamodb locking table."
