@@ -7,15 +7,6 @@
       ],
       "Effect": "Allow",
       "Resource": "*"
-    },
-    {
-      "Action": [
-        "ec2:*"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "${instance_arn}"
-      ]
     }
   ]
 }

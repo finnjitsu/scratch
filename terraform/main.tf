@@ -19,11 +19,27 @@ module "main_vpc" {
   web_subnet_b_cidr = var.web_subnet_b_cidr
 }
 
-module "stop_ec2_instance" {
+module "scratch_start" {
+  name                           = "${var.stack_name}-stop"
+  version                        = "1.4.3"
   source                         = "diodonfrost/lambda-scheduler-stop-start/aws"
-  name                           = "ec2_stop"
   cloudwatch_schedule_expression = "cron(${var.stop_schedule})"
   schedule_action                = "stop"
+  ec2_schedule                   = "true"
+  rds_schedule                   = "false"
+  autoscaling_schedule           = "false"
+  resources_tag                  = {
+    key   = "${var.scheduled_downtime_flag}"
+    value = "${var.scheduled_downtime_enabled}"
+  }
+}
+
+module "scratch_stop" {
+  name                           = "${var.stack_name}-start"
+  version                        = "1.4.3"
+  source                         = "diodonfrost/lambda-scheduler-stop-start/aws"
+  cloudwatch_schedule_expression = "cron(${var.start_schedule})"
+  schedule_action                = "start"
   ec2_schedule                   = "true"
   rds_schedule                   = "false"
   autoscaling_schedule           = "false"
