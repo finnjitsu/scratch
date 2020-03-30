@@ -18,3 +18,17 @@ module "main_vpc" {
   web_subnet_a_cidr = var.web_subnet_a_cidr
   web_subnet_b_cidr = var.web_subnet_b_cidr
 }
+
+module "stop_ec2_instance" {
+  source                         = "diodonfrost/lambda-scheduler-stop-start/aws"
+  name                           = "ec2_stop"
+  cloudwatch_schedule_expression = "cron(${var.stop_schedule})"
+  schedule_action                = "stop"
+  ec2_schedule                   = "true"
+  rds_schedule                   = "false"
+  autoscaling_schedule           = "false"
+  resources_tag                  = {
+    key   = "${var.scheduled_downtime_flag}"
+    value = "${var.scheduled_downtime_enabled}"
+  }
+}

@@ -68,9 +68,14 @@ variable "account_alias" {
   description = "Friendly name for the AWS account, used in s3 bucket names."
 }
 
-variable "scheduled_downtime" {
+variable "scheduled_downtime_flag" {
   type        = string
-  description = "Is the application scheduled to be cycled via automation?"
+  description = "Tag name that flags whether or not the resource has stop/start automation."
+}
+
+variable "scheduled_downtime_enabled" {
+  type        = string
+  description = "Set to true if the resource should be attached to stop/start automation."
 }
 
 variable "stop_schedule" {

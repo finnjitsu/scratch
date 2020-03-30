@@ -32,10 +32,10 @@ resource "aws_instance" "app_worker_01" {
   availability_zone      = "${var.region}a"
   subnet_id              = module.main_vpc.app_subnet_a_id
   tags = {
-    Name              = "${var.stack_name}-app-worker-01"
-    ScheduledDowntime = var.scheduled_downtime
-    StopSchedule      = var.stop_schedule
-    StartSchedule     = var.start_schedule
+    Name                             = "${var.stack_name}-app-worker-01"
+    "${var.scheduled_downtime_flag}" = var.scheduled_downtime_enabled
+    StopSchedule                     = var.stop_schedule
+    StartSchedule                    = var.start_schedule
   }
 }
 
